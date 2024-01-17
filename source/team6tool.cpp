@@ -441,6 +441,54 @@ int main(int argc, char* argv[])
 						}
 
 					}
+					int objectInfo;
+					pFile.read((char*)&objectInfo, sizeof(int));
+					std::cout << "INFO: Object Infos: " << objectInfo << std::endl;
+					std::cout << "------------------------------------------" << std::endl;
+					for (int i = 0; i < objectInfo; i++)
+					{
+						int nameLen = 0;
+						std::string nameInfo, fxInfo;
+						pFile.read((char*)&nameLen, sizeof(int));
+
+						if (nameLen > 0)
+						{
+							std::unique_ptr<char[]> nameData = std::make_unique<char[]>(nameLen);
+							pFile.read(nameData.get(), nameLen);
+
+							std::string str(nameData.get(), nameLen);
+							nameInfo = str;
+						}
+
+						float pos[3];
+						pFile.read((char*)&pos, sizeof(pos));
+
+						float unk[7];
+						pFile.read((char*)&unk, sizeof(unk));
+
+						int field28;
+						pFile.read((char*)&field28, sizeof(int));
+
+						int fxLen = 0;
+						pFile.read((char*)&fxLen, sizeof(int));
+
+						if (fxLen > 0)
+						{
+							std::unique_ptr<char[]> fxData = std::make_unique<char[]>(fxLen);
+							pFile.read(fxData.get(), fxLen);
+
+							std::string str(fxData.get(), fxLen);
+							fxInfo = str;
+						}
+
+						int infoGroupID;
+						pFile.read((char*)&infoGroupID, sizeof(int));
+
+						int lastField;
+						pFile.read((char*)&lastField, sizeof(int));
+
+						std::cout << "INFO: Group [ " << infoGroupID << " ] Name: " << nameInfo << " | POS : " << pos[0] << " " << pos[1] << " " << pos[2] << std::endl;
+					}
 
 					// would use eObj but no support for multiple objects yet, todo
 		

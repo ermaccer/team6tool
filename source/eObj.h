@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 struct obj_v { float x, y, z; };
 struct obj_uv { float u, v; };

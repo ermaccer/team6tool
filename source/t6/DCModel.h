@@ -15,7 +15,8 @@ struct group_entry {
 	int facesBegin;
 	int facesSize;
 };
-#pragma (pop)
+#pragma pack(pop)
+
 struct group_data {
 	std::vector<group_entry> vGroups;
 };

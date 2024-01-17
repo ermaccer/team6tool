@@ -20,7 +20,8 @@ struct texture_info_new {
 	int  flags[5];
 	char pad;
 };
-#pragma (pop)
+#pragma pack(pop)
+
 #pragma pack(push, 1)
 struct model_info_new {
 	int flags[11];
@@ -28,7 +29,7 @@ struct model_info_new {
 	int flag;
 	char pad[5];
 };
-#pragma (pop)
+#pragma pack(pop)
 
 #pragma pack(push, 1)
 struct model_info_new_char {
@@ -37,7 +38,7 @@ struct model_info_new_char {
 	int flag;
 	char pad[5];
 };
-#pragma (pop)
+#pragma pack(pop)
 
 
 const char* GetResourceType(int resource);

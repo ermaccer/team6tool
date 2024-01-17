@@ -2,8 +2,8 @@
 
 mat_property FindProperty(std::vector<mat_property> prop, std::string type)
 {
-	int iFind = 0;
-	for (int i = 0; i < prop.size(); i++)
+	unsigned int iFind = 0;
+	for (unsigned int i = 0; i < prop.size(); i++)
 	{
 		if (prop[i].propertyName == type)
 		{
@@ -16,8 +16,8 @@ mat_property FindProperty(std::vector<mat_property> prop, std::string type)
 
 mat_property FindFirstTexture(std::vector<mat_property> prop)
 {
-	int iFind = 0;
-	for (int i = 0; i < prop.size(); i++)
+	unsigned int iFind = 0;
+	for (unsigned int i = 0; i < prop.size(); i++)
 	{
 		if (prop[i].isTexture)
 		{
@@ -30,8 +30,8 @@ mat_property FindFirstTexture(std::vector<mat_property> prop)
 
 bool AreTexturesPresent(std::vector<mat_property> prop)
 {
-	int iFind = false;
-	for (int i = 0; i < prop.size(); i++)
+	unsigned int iFind = false;
+	for (unsigned int i = 0; i < prop.size(); i++)
 	{
 		if (prop[i].isTexture)
 		{
