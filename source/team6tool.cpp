@@ -508,6 +508,7 @@ int main(int argc, char* argv[])
 			if (resourceType == RESOURCE_TEXTURE || resourceType == RESOURCE_FLATOUT_3_TEXTURE)
 			{
 				int width, height;
+				char format = TEXTURE_FORMAT_DXT1;
 				if (resourceType == RESOURCE_FLATOUT_3_TEXTURE)
 				{
 					pFile.seekg(27, pFile.beg);
@@ -522,9 +523,10 @@ int main(int argc, char* argv[])
 					pFile.read((char*)&texture, sizeof(texture_info_new));
 
 
-			
+
 					width = texture.width;
 					height = texture.height;
+					format = texture.flags[1] & 0xff;
 
 					if ((int)texture._pad[4] == 4)
 					{
@@ -543,7 +545,7 @@ int main(int argc, char* argv[])
 				output.replace(output.length() - 4, 4, ".dds");
 
 				std::ofstream oFile(output, std::ofstream::binary);
-				
+
 				dds_header dds;
 				dds.magic = ' SDD';
 
@@ -556,10 +558,22 @@ int main(int argc, char* argv[])
 				dds.dwMipMapCount = 0;
 				dds.ddspf.dwSize = sizeof(DDS_PIXELFORMAT);
 				dds.ddspf.dwFlags = DDPF_FOURCC;
-				dds.ddspf.dwFourCC[0] = 'D';
-				dds.ddspf.dwFourCC[1] = 'X';
-				dds.ddspf.dwFourCC[2] = 'T';
-				dds.ddspf.dwFourCC[3] = '1';
+				if (format == TEXTURE_FORMAT_DXT1) {
+					dds.ddspf.dwFourCC[0] = 'D';
+					dds.ddspf.dwFourCC[1] = 'X';
+					dds.ddspf.dwFourCC[2] = 'T';
+					dds.ddspf.dwFourCC[3] = '1';
+				}
+				else if (format == TEXTURE_FORMAT_DXT5) {
+					dds.ddspf.dwFourCC[0] = 'D';
+					dds.ddspf.dwFourCC[1] = 'X';
+					dds.ddspf.dwFourCC[2] = 'T';
+					dds.ddspf.dwFourCC[3] = '5';
+				}
+				else {
+					std::cout << "ERROR: Unknown texture format: " << (int)format << std::endl;
+					return 1;
+				}
 				dds.ddspf.dwRGBBitCount = 256;
 				dds.ddspf.dwRBitMask = 0x00000000;
 				dds.ddspf.dwGBitMask = 0x00000000;
