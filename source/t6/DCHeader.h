@@ -7,6 +7,13 @@ enum eResourceType {
 	RESOURCE_FLATOUT_3_TEXTURE = 10001
 };
 
+enum eTextureFormat {
+	TEXTURE_FORMAT_RGBA = 0,
+	TEXTURE_FORMAT_RGB = 5,
+	TEXTURE_FORMAT_DXT1 = 8,
+	TEXTURE_FORMAT_DXT5 = 9
+};
+
 struct dc_header_new {
 	char header[7];
 	int  resourceType;
